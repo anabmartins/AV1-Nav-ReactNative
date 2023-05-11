@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TelaA from './screens/TelaA';
-import TelaB from './screens/TelaB';
-import TelaC from './screens/TelaC';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Home from './screens/Home';
+import Notifications from './screens/Notifications';
+import Explore from './screens/Explore';
+import Profile from './screens/Profile';
+import { Feather } from '@expo/vector-icons';
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -13,30 +14,31 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
             let iconName;
 
-            if (route.name === 'Info') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Perfil') {
-              iconName = focused ? 'ios-person' : 'ios-person-outline';
-            } else if (route.name === 'Chat') {
-              iconName = focused ? 'ios-chatbubbles' : 'ios-chatbubbles-outline';
-            }
+            if (route.name === 'Home') {
+              iconName = 'home';
+            } else if (route.name === 'Notifications') {
+              iconName = 'bell';
+            } else if (route.name === 'Explore') {
+              iconName = 'search';
+            } else if (route.name === 'Profile') {
+              iconName = 'user';
+            } 
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return <Feather name={iconName} size={30} color={color} />;
           },
         })}
         tabBarOptions={{
-          activeTintColor: '#ff33cc',
+          activeTintColor: '#2890fa',
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="Info" component={TelaA} />
-        <Tab.Screen name="Perfil" component={TelaB} />
-        <Tab.Screen name="Chat" component={TelaC} />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Notifications" component={Notifications} />
+        <Tab.Screen name="Explore" component={Explore} />
+        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );
